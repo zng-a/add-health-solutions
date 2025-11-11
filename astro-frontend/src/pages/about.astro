@@ -1,0 +1,65 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+---
+
+<MainLayout title="About">
+  <section class="py-16">
+    <div class="container-custom">
+      <div class="max-w-3xl mx-auto">
+        <h1 class="text-4xl font-bold mb-8">About Mainline</h1>
+
+        <div class="prose prose-lg max-w-none">
+          <p class="text-xl text-gray-700 mb-6">
+            Mainline is a modern web application built with Astro and powered by Payload CMS,
+            combining the best of static site generation with a powerful headless CMS.
+          </p>
+
+          <h2 class="text-2xl font-semibold mt-8 mb-4">Technology Stack</h2>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 not-prose">
+            <div class="bg-white p-6 rounded-lg shadow-md">
+              <h3 class="text-lg font-semibold mb-2">Astro Frontend</h3>
+              <ul class="space-y-2 text-gray-600">
+                <li>• Lightning-fast static site generation</li>
+                <li>• Component islands architecture</li>
+                <li>• Optimized performance by default</li>
+                <li>• Tailwind CSS for styling</li>
+              </ul>
+            </div>
+
+            <div class="bg-white p-6 rounded-lg shadow-md">
+              <h3 class="text-lg font-semibold mb-2">Payload CMS Backend</h3>
+              <ul class="space-y-2 text-gray-600">
+                <li>• Powerful headless CMS</li>
+                <li>• REST and GraphQL APIs</li>
+                <li>• Cloudflare D1 database</li>
+                <li>• R2 storage for media</li>
+              </ul>
+            </div>
+          </div>
+
+          <h2 class="text-2xl font-semibold mt-8 mb-4">Key Features</h2>
+
+          <ul class="space-y-3 text-gray-700">
+            <li>
+              <strong>Performance First:</strong> Astro's architecture ensures minimal JavaScript
+              and optimal loading times.
+            </li>
+            <li>
+              <strong>Content Management:</strong> Payload CMS provides a flexible and intuitive
+              interface for managing content.
+            </li>
+            <li>
+              <strong>Modern Design:</strong> The Mainline theme offers a clean, professional
+              design that's fully responsive.
+            </li>
+            <li>
+              <strong>Developer Experience:</strong> Built with TypeScript for type safety and
+              better development experience.
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+</MainLayout>
