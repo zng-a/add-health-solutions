@@ -1,16 +1,14 @@
 import { withPayload } from '@payloadcms/next/withPayload'
+import type { NextConfig } from 'next'
 
-/** @type {import('next').NextConfig} */
-const nextConfig = {
+const nextConfig: NextConfig = {
   // Your Next.js config here
   output: 'standalone',
-  experimental: {
-    outputFileTracingIncludes: {
-      '/': ['./public/**/*'],
-    },
-    outputFileTracingExcludes: {
-      '/': ['./astro-frontend/**/*', './node_modules/@swc/**/*'],
-    },
+  outputFileTracingIncludes: {
+    '/': ['./public/**/*'],
+  },
+  outputFileTracingExcludes: {
+    '/': ['./astro-frontend/**/*', './node_modules/@swc/**/*'],
   },
   webpack: (webpackConfig: any, { isServer }: any) => {
     webpackConfig.resolve.extensionAlias = {
@@ -19,7 +17,7 @@ const nextConfig = {
       '.mjs': ['.mts', '.mjs'],
     }
 
-    // Optimize build performance
+    // Optimize build performance - disable server-side minification
     if (isServer) {
       webpackConfig.optimization = {
         ...webpackConfig.optimization,
