@@ -1,0 +1,28 @@
+# Cloudflare Pages ignore file
+# These files/directories won't be uploaded to Cloudflare Pages
+
+# Astro frontend (separate deployment)
+astro-frontend/
+
+# Tests
+tests/
+test.env
+*.test.ts
+*.spec.ts
+
+# Documentation
+*.md
+!README.md
+
+# Development
+.vscode/
+.idea/
+
+# Build artifacts (only upload the final .open-next output)
+.next/
+node_modules/
+.wrangler/
+
+# Logs
+*.log
+npm-debug.log*
