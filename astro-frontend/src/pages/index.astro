@@ -1,0 +1,80 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import Hero from '../components/Hero.astro';
+
+// Payload CMS API configuration
+const PAYLOAD_API_URL = import.meta.env.PAYLOAD_API_URL || 'http://localhost:3000/api';
+
+// Fetch content from Payload CMS (will be implemented once backend is running)
+let posts = [];
+try {
+  // This will fetch from Payload CMS once it's running
+  // const response = await fetch(`${PAYLOAD_API_URL}/posts`);
+  // posts = await response.json();
+} catch (error) {
+  console.log('Payload CMS not available yet:', error);
+}
+---
+
+<MainLayout title="Home">
+  <Hero
+    title="Welcome to Mainline"
+    subtitle="A modern Astro website powered by Payload CMS. Build fast, scalable web applications with the best of both worlds."
+    ctaText="Get Started"
+    ctaLink="/contact"
+  />
+
+  <section class="py-16">
+    <div class="container-custom">
+      <h2 class="text-3xl font-bold text-center mb-12">Features</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="p-6 bg-white rounded-lg shadow-md">
+          <div class="text-primary-600 text-4xl mb-4">⚡</div>
+          <h3 class="text-xl font-semibold mb-2">Lightning Fast</h3>
+          <p class="text-gray-600">
+            Built with Astro for optimal performance and minimal JavaScript.
+          </p>
+        </div>
+        <div class="p-6 bg-white rounded-lg shadow-md">
+          <div class="text-primary-600 text-4xl mb-4">🎨</div>
+          <h3 class="text-xl font-semibold mb-2">Modern Design</h3>
+          <p class="text-gray-600">
+            Clean, responsive design with Tailwind CSS and the Mainline theme.
+          </p>
+        </div>
+        <div class="p-6 bg-white rounded-lg shadow-md">
+          <div class="text-primary-600 text-4xl mb-4">📝</div>
+          <h3 class="text-xl font-semibold mb-2">Content Management</h3>
+          <p class="text-gray-600">
+            Powered by Payload CMS for flexible and powerful content management.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-16 bg-gray-50">
+    <div class="container-custom">
+      <h2 class="text-3xl font-bold text-center mb-12">Latest from Blog</h2>
+      {posts.length > 0 ? (
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {posts.map((post: any) => (
+            <article class="bg-white rounded-lg shadow-md overflow-hidden">
+              <div class="p-6">
+                <h3 class="text-xl font-semibold mb-2">{post.title}</h3>
+                <p class="text-gray-600 mb-4">{post.excerpt}</p>
+                <a href={`/blog/${post.slug}`} class="text-primary-600 hover:text-primary-700 font-medium">
+                  Read more →
+                </a>
+              </div>
+            </article>
+          ))}
+        </div>
+      ) : (
+        <div class="text-center text-gray-600">
+          <p>Content will appear here once Payload CMS is connected and running.</p>
+        </div>
+      )}
+    </div>
+  </section>
+</MainLayout>

@@ -1,0 +1,83 @@
+---
+import MainLayout from '../../layouts/MainLayout.astro';
+import { fetchFromPayload } from '../../lib/payload';
+
+interface Post {
+  id: string;
+  title: string;
+  slug: string;
+  content: string;
+  excerpt?: string;
+  publishedDate: string;
+  createdAt: string;
+}
+
+let posts: Post[] = [];
+let error: string | null = null;
+
+try {
+  const response = await fetchFromPayload<Post>('posts', {
+    limit: '10',
+    sort: '-publishedDate',
+  });
+  posts = response.docs;
+} catch (e) {
+  error = 'Unable to fetch posts from Payload CMS. Make sure the backend is running.';
+  console.error(e);
+}
+---
+
+<MainLayout title="Blog">
+  <section class="py-16">
+    <div class="container-custom">
+      <h1 class="text-4xl font-bold mb-8">Blog</h1>
+
+      {error ? (
+        <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-6 mb-8">
+          <p class="text-yellow-800">{error}</p>
+          <p class="text-sm text-yellow-700 mt-2">
+            Start the Payload CMS backend by running: <code class="bg-yellow-100 px-2 py-1 rounded">pnpm dev</code>
+          </p>
+        </div>
+      ) : posts.length > 0 ? (
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {posts.map((post) => (
+            <article class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
+              <div class="p-6">
+                <time class="text-sm text-gray-500" datetime={post.publishedDate}>
+                  {new Date(post.publishedDate || post.createdAt).toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric',
+                  })}
+                </time>
+                <h2 class="text-xl font-semibold mt-2 mb-3">
+                  <a href={`/blog/${post.slug}`} class="hover:text-primary-600 transition-colors">
+                    {post.title}
+                  </a>
+                </h2>
+                {post.excerpt && (
+                  <p class="text-gray-600 mb-4">{post.excerpt}</p>
+                )}
+                <a
+                  href={`/blog/${post.slug}`}
+                  class="text-primary-600 hover:text-primary-700 font-medium inline-flex items-center"
+                >
+                  Read more
+                  <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                  </svg>
+                </a>
+              </div>
+            </article>
+          ))}
+        </div>
+      ) : (
+        <div class="text-center py-12">
+          <p class="text-gray-600 text-lg">No posts available yet.</p>
+          <p class="text-gray-500 mt-2">Create your first post in the Payload CMS admin panel.</p>
+        </div>
+      )}
+    </div>
+  </section>
+</MainLayout>
