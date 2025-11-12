@@ -5,9 +5,6 @@ const nextConfig: NextConfig = {
   // Your Next.js config here
   output: 'standalone',
 
-  // Disable file tracing - OpenNext handles bundling for Cloudflare
-  outputFileTracing: false,
-
   webpack: (webpackConfig: any, { isServer }: any) => {
     webpackConfig.resolve.extensionAlias = {
       '.cjs': ['.cts', '.cjs'],
